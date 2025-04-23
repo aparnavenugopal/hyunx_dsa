@@ -1,108 +1,120 @@
-class Node{
-   constructor(value){
-     this.head = value;
-     this.next = null;
-   }
+class Node {
+    constructor(value) {
+        this.value = value;
+        this.next = null;
+    }
 }
 
-class LinkedList{
-    constructor(value){
+class LinkedList {
+    constructor(value) {
         this.head = new Node(value);
         this.tail = this.head;
         this.length = 1;
     }
-    push(value){
+
+    push(value) {
         const newNode = new Node(value);
         this.tail.next = newNode;
         this.tail = newNode;
         this.length++;
         return this;
     }
-    pop(){
-        if(!this.head) return undefined;
-        if(this.head === this.tail){
+
+    pop() {
+        if (!this.head) return undefined;
+        if (this.head === this.tail) {
+            const temp = this.head;
             this.head = null;
             this.tail = null;
             this.length--;
-            return this;
+            return temp;
         }
+
         let temp = this.head;
         let pre = this.head;
-        while(temp.next){
+        while (temp.next) {
             pre = temp;
             temp = temp.next;
         }
+
         this.tail = pre;
-        this.tail.next =null;
+        this.tail.next = null;
         this.length--;
         return temp;
     }
+
     unshift(value) {
         const newNode = new Node(value);
-    
-        if (this.head === null) {
+
+        if (!this.head) {
             this.head = newNode;
             this.tail = newNode;
         } else {
             newNode.next = this.head;
             this.head = newNode;
         }
-    
+
         this.length++;
         return this;
     }
-    shift(){
-        if(!this.head) return undefined;
+
+    shift() {
+        if (!this.head) return undefined;
         const temp = this.head;
         this.head = this.head.next;
         temp.next = null;
-        if(this.head === null){
+        if (this.head === null) {
             this.tail = null;
         }
         this.length--;
         return temp;
     }
-    getFirst(){
-        if(!this.head) return undefined;
+
+    getFirst() {
+        if (!this.head) return undefined;
         return this.head;
     }
-    getLast(){
+
+    getLast() {
         let temp = this.head;
-        if(!temp) return undefined;
-        while(temp.next){
+        if (!temp) return undefined;
+        while (temp.next) {
             temp = temp.next;
         }
         return temp;
     }
+
     getElementByIndex(index) {
         if (index < 0 || index >= this.length) return undefined;
-      
+
         let temp = this.head;
         let i = 0;
-      
+
         while (temp) {
-          if (i === index) return temp;
-          temp = temp.next;
-          i++;
+            if (i === index) return temp;
+            temp = temp.next;
+            i++;
         }
-      
-        return undefined; 
-      }
-      setValueByIndex(index, value){
+
+        return undefined;
+    }
+
+    setValueByIndex(index, value) {
         if (index < 0 || index >= this.length) return undefined;
+
         let temp = this.head;
-        let i=0;
-        while(temp){
-            if(index === i){
-                temp.head =value;
+        let i = 0;
+        while (temp) {
+            if (index === i) {
+                temp.value = value;
                 return temp;
             }
             temp = temp.next;
             i++;
         }
-      
-      }
-      insert(index, value) {
+    }
+
+    insert(index, value) {
         if (index < 0 || index > this.length) return false;
 
         if (index === 0) {
@@ -122,16 +134,38 @@ class LinkedList{
         this.length++;
         return true;
     }
-    size(){
+
+    size() {
         return this.length;
     }
-    clear(){
+
+    clear() {
         this.head = null;
         this.tail = null;
-        this.length =0;
+        this.length = 0;
+    }
+    reverse() {
+        if (this.length <= 1) return this;
+
+        let prev = null;
+        let current = this.head;
+        let next = null;
+
+        this.tail = this.head;
+
+        while (current) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+
+        this.head = prev;
+        return this;
     }
 }
 
+// Sample usage
 const myLinkedList = new LinkedList(10);
 myLinkedList.push(20);
 myLinkedList.push(30);
@@ -152,3 +186,4 @@ myLinkedList.setValueByIndex(1, 100);
 myLinkedList.insert(2, 200);
 console.log(myLinkedList);
 console.log(myLinkedList.size());
+console.log(myLinkedList.reverse());
