@@ -1,0 +1,20 @@
+const LargestSubarrayOfSumk = (arr, k) => {
+  let i=0, j=0;
+  let sum = 0;
+  let maxLen = 0;
+  while(j< arr.length){
+    sum += arr[j];
+    while(sum > k && i <=j){
+        sum -=arr[i];
+        i++;
+    }
+    if(sum == k){
+        maxLen = Math.max(maxLen, j-i+1);
+    }
+    j++;
+  }
+  return maxLen
+}
+
+const t = LargestSubarrayOfSumk([4,1,1,1,2,3,5],5);
+console.log(t);
