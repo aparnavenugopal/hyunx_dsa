@@ -3,9 +3,9 @@ const printNum = (n) => {
     console.log(1);
     return;
   };
-  console.log(n);
+  // console.log(n);
   printNum(n-1);
-//   console.log(n);
+  console.log(n);
  
 }
 
