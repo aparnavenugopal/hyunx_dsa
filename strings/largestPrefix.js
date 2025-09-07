@@ -1,4 +1,6 @@
 const largestPrefix = (strs) => {
+    let s = '';
+    
 
 }
 
